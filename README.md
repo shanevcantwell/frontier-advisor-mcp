@@ -10,35 +10,44 @@ See [ARCHITECTURE.md](ARCHITECTURE.md) for design rationale.
 |---|---|
 | `consult_frontier` | Ask a frontier model a question (quick/standard/deep tiers) |
 | `advisory_history` | Review recent consultations to avoid re-asking |
-| `describe_advisory_tiers` | List available tiers and their costs |
+| `describe_advisory_tiers` | List available tiers and model preferences |
 
-## Setup
+## Quick Start
 
-### Environment Variables
+```bash
+git clone https://github.com/Shane/frontier-advisor-mcp.git
+cd frontier-advisor-mcp
+bash install.sh        # Linux / macOS / Git Bash
+install.bat            # Windows (cmd or PowerShell)
+```
 
-| Variable | Required | Default |
-|---|---|---|
-| `ANTHROPIC_API_KEY` | At least one provider | — |
-| `OPENAI_API_KEY` | At least one provider | — |
-| `ANTHROPIC_BASE_URL` | No | `https://api.anthropic.com` |
-| `OPENAI_BASE_URL` | No | `https://api.openai.com` |
+The installer builds the Docker image and walks you through setup:
 
-### Install from source
+```
+  ┌─────────────────────────────────────────┐
+  │       frontier-advisor-mcp  setup        │
+  └─────────────────────────────────────────┘
+
+  1)  Docker + mcp-vault     (OS keychain, recommended)
+  2)  Docker + env vars      (quick start)
+  3)  Docker MCP Toolkit     (gateway + mcp.json)
+
+  Pick an option [1/2/3]:
+```
+
+**Option 1** uses [mcp-vault](https://github.com/Shane/mcp-vault) to keep API keys in your OS credential store. Your `mcp.json` becomes safe to share, screenshot, or paste in help channels.
+
+**Option 2** gets you running fast with env vars in `mcp.json`. Fine for trying it out, but consider option 1 for regular use.
+
+**Option 3** registers the server in Docker Desktop's MCP gateway for tool routing via `docker mcp client connect`. API keys still go in `mcp.json` — custom catalog servers don't yet appear in the Desktop UI secrets panel.
+
+See [mcp.json.example](mcp.json.example) for the recommended client configuration.
+
+### Manual install (no Docker)
 
 ```bash
 pip install -e .
-frontier-advisor
 ```
-
-### Docker
-
-```bash
-docker build -t frontier-advisor .
-```
-
-## MCP Client Configuration
-
-### Direct (env vars)
 
 ```json
 {
@@ -53,46 +62,14 @@ docker build -t frontier-advisor .
 }
 ```
 
-### Docker
+## Environment Variables
 
-```json
-{
-  "mcpServers": {
-    "frontier-advisor": {
-      "command": "docker",
-      "args": [
-        "run", "-i", "--rm",
-        "-e", "ANTHROPIC_API_KEY=sk-ant-...",
-        "frontier-advisor"
-      ]
-    }
-  }
-}
-```
-
-### With mcp-vault
-
-```json
-{
-  "mcpServers": {
-    "frontier-advisor": {
-      "command": "mcp-vault",
-      "args": [
-        "--", "docker", "run", "-i", "--rm",
-        "-e", "ANTHROPIC_API_KEY=vault:anthropic/api-key",
-        "-e", "OPENAI_API_KEY=vault:openai/api-key",
-        "frontier-advisor"
-      ]
-    }
-  }
-}
-```
-
-Store credentials once:
-```bash
-mcp-vault store anthropic/api-key
-mcp-vault store openai/api-key
-```
+| Variable | Required | Default |
+|---|---|---|
+| `ANTHROPIC_API_KEY` | At least one provider | — |
+| `OPENAI_API_KEY` | At least one provider | — |
+| `ANTHROPIC_BASE_URL` | No | `https://api.anthropic.com` |
+| `OPENAI_BASE_URL` | No | `https://api.openai.com` |
 
 ## Advisory Tiers
 

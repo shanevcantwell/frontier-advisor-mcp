@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "frontier-advisor": {
+      "command": "mcp-vault",
+      "args": [
+        "--", "docker", "run", "-i", "--rm",
+        "-e", "ANTHROPIC_API_KEY=vault:anthropic/api-key",
+        "-e", "OPENAI_API_KEY=vault:openai/api-key",
+        "mcp/frontier-advisor"
+      ]
+    }
+  }
+}

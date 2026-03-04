@@ -1,0 +1,34 @@
+registry:
+    frontier-advisor:
+        command:
+            - --transport=stdio
+        dateAdded: "2026-03-04T00:00:00Z"
+        description: Gives local models a governed tool for consulting frontier AI (Anthropic, OpenAI) with tiered routing and audit logging.
+        image: mcp/frontier-advisor:latest
+        metadata:
+            category: ai
+            license: MIT
+            owner: Shane
+            tags:
+                - ai
+                - frontier
+                - mcp
+                - advisory
+        prompts: 0
+        resources: {}
+        secrets:
+            - description: "Anthropic API key for Claude models. Get one at https://console.anthropic.com/"
+              env: ANTHROPIC_API_KEY
+              example: sk-ant-api03-...
+              name: frontier-advisor.anthropic_api_key
+            - description: "OpenAI API key for GPT models. Get one at https://platform.openai.com/"
+              env: OPENAI_API_KEY
+              example: sk-proj-...
+              name: frontier-advisor.openai_api_key
+        source: https://github.com/Shane/frontier-advisor-mcp
+        title: Frontier Advisor
+        tools:
+            - name: consult_frontier
+            - name: advisory_history
+            - name: describe_advisory_tiers
+        type: server

@@ -9,3 +9,4 @@ build/
 .graphs/
 .claude/
 .vscode/
+install-error.log

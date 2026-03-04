@@ -40,7 +40,7 @@ async def list_tools() -> list[types.Tool]:
                 "Use when local capabilities are insufficient for the task — "
                 "complex reasoning, architecture decisions, novel synthesis, "
                 "or factual verification beyond training data. "
-                "Frame the question precisely. Every token costs. "
+                "Frame the question precisely. "
                 "Check advisory_history first to avoid re-asking."
             ),
             inputSchema={
@@ -55,9 +55,9 @@ async def list_tools() -> list[types.Tool]:
                         "enum": ["quick", "standard", "deep"],
                         "default": "standard",
                         "description": (
-                            "Advisory tier. quick (~2 units): factual checks, syntax. "
-                            "standard (~10 units): complex reasoning. "
-                            "deep (~40 units): architecture, novel synthesis."
+                            "Advisory tier. quick: factual checks, syntax. "
+                            "standard: complex reasoning. "
+                            "deep: architecture, novel synthesis."
                         ),
                     },
                     "context": {
@@ -65,7 +65,7 @@ async def list_tools() -> list[types.Tool]:
                         "default": "",
                         "description": (
                             "Supporting context the frontier model needs. "
-                            "ONLY what is necessary — every token costs."
+                            "ONLY what is necessary."
                         ),
                     },
                     "system_prompt": {
@@ -96,7 +96,7 @@ async def list_tools() -> list[types.Tool]:
         ),
         types.Tool(
             name="describe_advisory_tiers",
-            description="List available advisory tiers, their costs, and model preferences.",
+            description="List available advisory tiers and model preferences.",
             inputSchema={
                 "type": "object",
                 "properties": {},

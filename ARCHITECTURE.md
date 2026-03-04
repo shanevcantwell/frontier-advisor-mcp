@@ -39,17 +39,17 @@ Access control (how often, how much) is the scaffold's responsibility — not th
 |---|---|
 | consult_frontier | Ask frontier model a question with tier selection |
 | advisory_history | Review recent consultations (avoid re-asking) |
-| describe_advisory_tiers | List tiers and costs |
+| describe_advisory_tiers | List tiers and model preferences |
 
 ## Advisory Tiers
 
 Local model picks the tier, not the provider:
 
-| Tier | Use Case | Max Tokens | Est. Cost | Models |
-|---|---|---|---|---|
-| quick | Factual verification, syntax | 512 | ~2 units | Haiku 4.5, GPT-4.1-mini |
-| standard | Complex reasoning | 2048 | ~10 units | Sonnet 4.5, GPT-4.1 |
-| deep | Architecture, novel synthesis | 4096 | ~40 units | Opus 4.6, o3 |
+| Tier | Use Case | Max Tokens | Models |
+|---|---|---|---|
+| quick | Factual verification, syntax | 512 | Haiku 4.5, GPT-4.1-mini |
+| standard | Complex reasoning | 2048 | Sonnet 4.5, GPT-4.1 |
+| deep | Architecture, novel synthesis | 4096 | Opus 4.6, o3 |
 
 ## Credentials
 
