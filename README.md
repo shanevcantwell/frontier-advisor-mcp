@@ -27,7 +27,7 @@ The installer builds the Docker image and walks you through setup:
 
 ```
   ┌─────────────────────────────────────────┐
-  │       frontier-advisor-mcp  setup        │
+  │       frontier-advisor-mcp  setup       │
   └─────────────────────────────────────────┘
 
   1)  Docker + mcp-vault     (OS keychain, recommended)
