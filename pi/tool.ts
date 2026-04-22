@@ -23,7 +23,7 @@ export const CONSULT_TOOL_DEFINITION = {
     "or factual verification beyond training data. " +
     "Frame the question precisely.",
   promptSnippet:
-    "Consult frontier models (Sonnet 4.5 / GPT-4.1) for complex reasoning and advisory input",
+    "Consult frontier models (Opus 4.7 / GPT-4.1) for complex reasoning and advisory input",
   promptGuidelines: [
     "Use for complex reasoning, architecture decisions, or novel synthesis beyond local model capabilities",
     "Frame the question precisely; include only necessary context",
