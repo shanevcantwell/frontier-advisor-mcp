@@ -1,10 +1,43 @@
-# frontier-advisor-mcp
+# frontier-advisor
 
-<img width="2752" height="1536" alt="image" src="https://github.com/user-attachments/assets/f86a831c-ba25-4e22-b182-2c7346b7b9be" />
+Infrastructure for a **90:10 local-to-frontier ratio**. Gives local models a governed tool for consulting frontier AI APIs.
 
-MCP server that gives local models a tool for consulting frontier AI APIs. The local model decides when to escalate. The scaffold controls access. The server routes and returns.
+```
+frontier-advisor/
+├── mcp/          # MCP server (standalone, Docker, mcp-vault)
+└── pi/           # PI extension (native to pi-coding-agent harness)
+```
 
-See [ARCHITECTURE.md](ARCHITECTURE.md) for design rationale.
+The local model decides *when* to escalate. The scaffold decides *whether* to allow it. The server routes and returns.
+
+## Choose your integration
+
+### PI Extension (recommended)
+
+For use directly inside [pi-coding-agent](https://github.com/mariozechner/pi-coding-agent).
+
+```
+cp pi/frontier-advisor.ts ~/.pi/agent/extensions/
+```
+
+- Single TypeScript file, zero dependencies beyond pi itself
+- Provider fallback: Anthropic (Sonnet 4.5) → OpenAI (GPT-4.1)
+- Credentials from environment variables (`ANTHROPIC_API_KEY`, `OPENAI_API_KEY`)
+- Native pi tool registration with `defineTool` pattern
+- Uses pi's `AuthStorage` and event system
+
+### MCP Server
+
+For use as a standalone MCP server (Docker, mcp-vault, MCP Toolkit).
+
+See [mcp/README.md](mcp/README.md) for setup.
+
+```bash
+cd mcp
+pip install -e .
+# or
+bash install.sh
+```
 
 ## Tool
 
@@ -14,57 +47,7 @@ See [ARCHITECTURE.md](ARCHITECTURE.md) for design rationale.
 
 Parameters: `question` (required), `context` (optional), `system_prompt` (optional override).
 
-## Quick Start
-
-```bash
-git clone https://github.com/shanevcantwell/frontier-advisor-mcp.git
-cd frontier-advisor-mcp
-bash install.sh        # Linux / macOS / Git Bash
-install.bat            # Windows (cmd or PowerShell)
-```
-
-The installer builds the Docker image and walks you through setup:
-
-```
-  ┌─────────────────────────────────────────┐
-  │       frontier-advisor-mcp  setup       │
-  └─────────────────────────────────────────┘
-
-  1)  Docker + mcp-vault     (OS keychain, recommended)
-  2)  Docker + env vars      (quick start)
-  3)  Docker MCP Toolkit     (gateway + mcp.json)
-
-  Pick an option [1/2/3]:
-```
-
-**Option 1** uses [mcp-vault](https://github.com/shanevcantwell/mcp-vault) to keep API keys in your OS credential store. Your `mcp.json` becomes safe to share, screenshot, or paste in help channels.
-
-**Option 2** gets you running fast with env vars in `mcp.json`. Fine for trying it out, but consider option 1 for regular use.
-
-**Option 3** registers the server in Docker Desktop's MCP gateway for tool routing via `docker mcp client connect`. API keys still go in `mcp.json` — custom catalog servers don't yet appear in the Desktop UI secrets panel.
-
-See [mcp.json.example](mcp.json.example) for the recommended client configuration.
-
-### Manual install (no Docker)
-
-```bash
-pip install -e .
-```
-
-```json
-{
-  "mcpServers": {
-    "frontier-advisor": {
-      "command": "frontier-advisor",
-      "env": {
-        "ANTHROPIC_API_KEY": "sk-ant-..."
-      }
-    }
-  }
-}
-```
-
-## Environment Variables
+## Credentials
 
 | Variable | Required | Default |
 |---|---|---|
@@ -73,9 +56,10 @@ pip install -e .
 | `ANTHROPIC_BASE_URL` | No | `https://api.anthropic.com` |
 | `OPENAI_BASE_URL` | No | `https://api.openai.com` |
 
-## Development
+## Design
 
-```bash
-pip install -e ".[dev]"
-pytest
-```
+See [mcp/ARCHITECTURE.md](mcp/ARCHITECTURE.md) for full design rationale, the gap analysis, and connection to LAS.
+
+## History
+
+`frontier-advisor-mcp` was originally a single Python MCP server. It's been restructured into `mcp/` (the original Python server, preserved) and `pi/` (the native pi extension). The MCP server still works exactly as before; the PI extension is the new recommended path for pi users.
