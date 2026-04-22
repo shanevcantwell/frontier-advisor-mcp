@@ -60,7 +60,7 @@ class TestHandleConsult:
         mock_result = {
             "response": "This is the advisory response.",
             "provider": "anthropic",
-            "model": "claude-opus-4-7-20250908",
+            "model": "claude-opus-4-7",
             "input_tokens": 50,
             "output_tokens": 25,
             "latency_ms": 1234,
@@ -91,7 +91,7 @@ class TestHandleConsult:
             # Verify all metadata fields
             metadata = data["metadata"]
             assert metadata["provider"] == "anthropic"
-            assert metadata["model"] == "claude-opus-4-7-20250908"
+            assert metadata["model"] == "claude-opus-4-7"
             assert metadata["input_tokens"] == 50
             assert metadata["output_tokens"] == 25
             assert metadata["latency_ms"] == 1234
@@ -127,7 +127,7 @@ class TestHandleConsult:
         mock_result = {
             "response": "Response.",
             "provider": "anthropic",
-            "model": "claude-opus-4-7-20250908",
+            "model": "claude-opus-4-7",
             "input_tokens": 10,
             "output_tokens": 5,
             "latency_ms": 500,
@@ -151,7 +151,7 @@ class TestHandleConsult:
         mock_result = {
             "response": "Response.",
             "provider": "anthropic",
-            "model": "claude-opus-4-7-20250908",
+            "model": "claude-opus-4-7",
             "input_tokens": 10,
             "output_tokens": 5,
             "latency_ms": 500,
@@ -192,7 +192,7 @@ class TestHandleConsult:
         mock_result = {
             "response": "Response.",
             "provider": "anthropic",
-            "model": "claude-opus-4-7-20250908",
+            "model": "claude-opus-4-7",
             "input_tokens": 10,
             "output_tokens": 5,
             "latency_ms": 500,
@@ -216,7 +216,7 @@ class TestCallToolConsultAdvisor:
         mock_result = {
             "response": "Advisory response.",
             "provider": "anthropic",
-            "model": "claude-opus-4-7-20250908",
+            "model": "claude-opus-4-7",
             "input_tokens": 20,
             "output_tokens": 10,
             "latency_ms": 800,

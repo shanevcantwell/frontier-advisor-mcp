@@ -22,7 +22,7 @@ const DEFAULT_SYSTEM_PROMPT =
 const MAX_TOKENS = 4096;
 
 const MODEL_PREFERENCE = [
-  ["anthropic", "claude-opus-4-7-20250908"],
+  ["anthropic", "claude-opus-4-7"],
   ["openai", "gpt-4.1"],
 ] as const;
 

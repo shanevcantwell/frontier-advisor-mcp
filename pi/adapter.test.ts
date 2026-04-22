@@ -172,7 +172,7 @@ describe("callAnthropic", () => {
     vi.stubGlobal("fetch", mockFetch);
 
     const result = await callAnthropic(
-      "claude-opus-4-7-20250908",
+      "claude-opus-4-7",
       "What is 2+2?",
       "",
       MAX_TOKENS,
@@ -186,7 +186,7 @@ describe("callAnthropic", () => {
     expect(options.method).toBe("POST");
 
     const body = JSON.parse(options.body as string);
-    expect(body.model).toBe("claude-opus-4-7-20250908");
+    expect(body.model).toBe("claude-opus-4-7");
     expect(body.max_tokens).toBe(MAX_TOKENS);
     expect(body.messages[0].role).toBe("user");
     expect(body.messages[0].content).toBe("What is 2+2?");
@@ -431,7 +431,7 @@ describe("consult", () => {
     const result = await consult({ question: "test" });
 
     expect(result.provider).toBe("anthropic");
-    expect(result.model).toBe("claude-opus-4-7-20250908");
+    expect(result.model).toBe("claude-opus-4-7");
     expect(result.response).toBe("Anthropic response.");
     expect(result.inputTokens).toBe(5);
     expect(result.outputTokens).toBe(3);
