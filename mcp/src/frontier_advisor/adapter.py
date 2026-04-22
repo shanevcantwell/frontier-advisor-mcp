@@ -105,9 +105,9 @@ class FrontierAdapter:
                 logger.warning("Provider %s/%s failed: %s", provider, model_id, e)
                 last_error = e
 
-        raise RuntimeError(
-            f"No provider available. Last error: {last_error}"
-        )
+        if last_error is not None:
+            raise RuntimeError(f"All configured providers failed. Last error: {last_error}")
+        raise RuntimeError("No API key configured for any provider. Set ANTHROPIC_API_KEY and/or OPENAI_API_KEY in the environment.")
 
     async def _call(self, provider, model, q, ctx, max_tok, sys_prompt, creds):
         if provider == "anthropic":

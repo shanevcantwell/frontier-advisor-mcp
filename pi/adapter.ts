@@ -257,5 +257,10 @@ export async function consult({ question, context = "", systemPrompt, apiKeyReso
     }
   }
 
-  throw new Error(`No provider available. Last error: ${lastError}`);
+  if (lastError) {
+    throw new Error(`All configured providers failed. Last error: ${lastError}`);
+  }
+  throw new Error(
+    "No API key configured for any provider. Set ANTHROPIC_API_KEY and/or OPENAI_API_KEY in the environment.",
+  );
 }

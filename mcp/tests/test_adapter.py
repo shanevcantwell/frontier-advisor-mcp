@@ -46,7 +46,7 @@ class TestAdapterInit:
         monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
         monkeypatch.delenv("OPENAI_API_KEY", raising=False)
         adapter = FrontierAdapter()
-        with pytest.raises(RuntimeError, match="No provider available"):
+        with pytest.raises(RuntimeError, match=r"(All configured providers failed|No API key configured)"):
             await adapter.consult(question="test")
 
     def test_get_provider_config_missing_key(self, monkeypatch):
@@ -186,7 +186,7 @@ class TestAdapterAnthropic:
             status_code=401, json={"error": "Invalid API key"}
         )
 
-        with pytest.raises(RuntimeError, match="No provider available"):
+        with pytest.raises(RuntimeError, match=r"(All configured providers failed|No API key configured)"):
             await adapter.consult(question="test")
 
 

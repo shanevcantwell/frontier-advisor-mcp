@@ -480,7 +480,9 @@ describe("consult", () => {
   });
 
   it("throws when no provider keys are available", async () => {
-    await expect(consult({ question: "test" })).rejects.toThrow("No provider available");
+    await expect(consult({ question: "test" })).rejects.toThrow(
+      "No API key configured",
+    );
   });
 
   it("throws when all providers fail", async () => {
@@ -489,7 +491,9 @@ describe("consult", () => {
 
     vi.stubGlobal("fetch", createErrorMockFetch(503, "Service Unavailable"));
 
-    await expect(consult({ question: "test" })).rejects.toThrow("No provider available");
+    await expect(consult({ question: "test" })).rejects.toThrow(
+      "All configured providers failed",
+    );
 
     vi.unstubAllGlobals();
   });
